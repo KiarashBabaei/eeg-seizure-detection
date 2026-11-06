@@ -59,7 +59,23 @@ flowchart TD
     F --> G["Window metrics: precision, recall, F1, AUC"]
     F --> H["Seizure metrics: seizures detected,<br/>false alarms per hour"]
     F --> I["Checks: shuffled labels,<br/>train vs test AUC"]
+
+    classDef data fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:2px
+    classDef one fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:2px
+    classDef many fill:#ede9fe,stroke:#7c3aed,color:#3b0764,stroke-width:2px
+    classDef model fill:#ffedd5,stroke:#ea580c,color:#7c2d12,stroke-width:2px
+    classDef eval fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:2px
+    classDef out fill:#f1f5f9,stroke:#475569,color:#0f172a,stroke-width:2px
+
+    class A,B data
+    class C1,D1 one
+    class C2,D2 many
+    class E model
+    class F eval
+    class G,H,I out
 ```
+
+Blue: data preparation. Green: single-channel pipeline. Purple: 18-channel pipeline. Orange: models. Yellow: evaluation. Gray: outputs.
 
 
 **Data.** Nine recordings from five CHB-MIT patients (chb01, chb03, chb05, chb07, chb08), sampled at 256 Hz. Each recording is cut into non-overlapping 4-second windows. Windows fully inside an annotated seizure are labeled 1 and windows fully outside are labeled 0. Windows that cross a seizure boundary are discarded. This gives 8,119 windows, of which 211 are seizure windows.
