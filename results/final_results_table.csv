@@ -1,0 +1,7 @@
+Method,Channels,Test_Precision,Test_Recall,Test_F1,LOPO_mean_AUC,LOPO_mean_F1
+Non-ML Baseline,1,0.1043,0.1348,0.1176,,
+Original Logistic Regression,1,0.1259,0.7753,0.2166,0.881,0.209
+Improved Logistic Regression,1,0.142,0.18,0.158,0.938,0.397
+Improved Gradient Boosting,1,0.196,0.438,0.271,0.941,0.332
+Full pipeline Logistic Regression,18,0.233,0.303,0.263,0.957,0.327
+Full pipeline Gradient Boosting,18,0.189,0.236,0.21,0.953,0.29

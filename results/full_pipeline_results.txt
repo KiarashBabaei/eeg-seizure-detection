@@ -1,0 +1,64 @@
+$ python full_pipeline.py
+  patient_id recording_id  ... seizure_end       split
+0      chb01     chb01_03  ...        3036       train
+1      chb01     chb01_04  ...        1494       train
+2      chb03     chb03_01  ...         414       train
+3      chb03     chb03_02  ...         796       train
+4      chb05     chb05_06  ...         532       train
+5      chb05     chb05_13  ...        1196       train
+6      chb07     chb07_13  ...        3381  validation
+7      chb08     chb08_02  ...        2841        test
+8      chb08     chb08_05  ...        3046        test
+
+[9 rows x 6 columns]
+
+split
+test                        [chb08]
+train         [chb01, chb03, chb05]
+validation                  [chb07]
+Name: patient_id, dtype: object
+reading data/chb01/chb01_03.edf
+reading data/chb01/chb01_04.edf
+reading data/chb03/chb03_01.edf
+reading data/chb03/chb03_02.edf
+reading data/chb05/chb05_06.edf
+reading data/chb05/chb05_13.edf
+reading data/chb07/chb07_13.edf
+reading data/chb08/chb08_02.edf
+reading data/chb08/chb08_05.edf
+30 features, 8119 windows
+
+A) ORIGINAL SPLIT (test chb08)  - previous best F1 = 0.217
+Logistic Regression  P=0.233 R=0.303 F1=0.263 AUC=0.855 (train AUC 0.998) | seizures caught 2/2, false alarms/hour 0.50
+Gradient Boosting    P=0.189 R=0.236 F1=0.210 AUC=0.753 (train AUC 1.000) | seizures caught 2/2, false alarms/hour 1.00
+
+B) LEAVE-ONE-PATIENT-OUT
+
+Logistic Regression
+            AUC  Precision  Recall  ...   FP  FN  train_AUC
+patient                            ...                    
+chb01    0.997      1.000   0.062  ...    0  15      0.993
+chb03    0.986      1.000   0.071  ...    0  26      0.997
+chb05    0.931      0.185   0.873  ...  211   7      0.996
+chb07    1.000      0.955   0.913  ...    1   2      0.992
+chb08    0.870      0.137   0.157  ...   88  75      0.998
+
+[5 rows x 8 columns]
+MEAN AUC=0.957 F1=0.327
+
+Gradient Boosting
+            AUC  Precision  Recall  ...   FP  FN  train_AUC
+patient                            ...                    
+chb01    0.984      0.000   0.000  ...    0  16        1.0
+chb03    0.969      0.000   0.000  ...    0  28        1.0
+chb05    0.984      0.260   0.945  ...  148   3        1.0
+chb07    1.000      1.000   0.913  ...    0   2        1.0
+chb08    0.827      0.095   0.079  ...   67  82        1.0
+
+[5 rows x 8 columns]
+MEAN AUC=0.953 F1=0.290
+
+C) SHUFFLED-LABEL CHECK (should be ~0.5)
+Logistic Regression  mean AUC = 0.517
+Gradient Boosting    mean AUC = 0.508
+(base) kiarashbabaei@Kiarashs-MacBook-Air ML-Seizure % 

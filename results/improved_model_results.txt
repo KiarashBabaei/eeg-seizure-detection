@@ -1,0 +1,48 @@
+======================================================================
+A) ORIGINAL SPLIT (train chb01/03/05, threshold on chb07, test chb08)
+   Your previous Logistic Regression: P=0.126  R=0.775  F1=0.217
+======================================================================
+Logistic Regression  P=0.142  R=0.180  F1=0.158  AUC=0.799  (train AUC 0.975)  TP=16 FP=97 FN=73
+Gradient Boosting    P=0.196  R=0.438  F1=0.271  AUC=0.802  (train AUC 0.997)  TP=39 FP=160 FN=50
+
+======================================================================
+B) LEAVE-ONE-PATIENT-OUT (each patient is the unseen test patient once)
+======================================================================
+
+YOUR ORIGINAL MODEL (3 raw features, threshold 0.5)
+           AUC  Precision  Recall     F1  TP   FP  FN
+patient                                              
+chb01    0.976      0.276   0.500  0.356   8   21   8
+chb03    0.809      0.039   0.857  0.075  24  590   4
+chb05    0.956      0.165   0.909  0.279  50  253   5
+chb07    0.874      0.062   0.913  0.116  21  317   2
+chb08    0.787      0.131   0.685  0.220  61  404  28
+MEAN  AUC=0.881  F1=0.209
+
+Logistic Regression
+           AUC  Precision  Recall     F1  TP   FP  FN  train_AUC
+patient                                                         
+chb01    0.998      1.000   0.062  0.118   1    0  15      0.931
+chb03    0.913      0.163   0.750  0.268  21  108   7      0.945
+chb05    0.992      0.793   0.836  0.814  46   12   9      0.918
+chb07    0.997      0.714   0.870  0.784  20    8   3      0.934
+chb08    0.792      0.000   0.000  0.000   0   90  89      0.979
+MEAN  AUC=0.938  F1=0.397  (train AUC 0.942)
+
+Gradient Boosting
+           AUC  Precision  Recall     F1  TP   FP  FN  train_AUC
+patient                                                         
+chb01    0.997      1.000   0.062  0.118   1    0  15      0.992
+chb03    0.931      0.128   0.821  0.222  23  156   5      0.995
+chb05    0.994      0.437   0.945  0.598  52   67   3      0.988
+chb07    0.988      0.364   0.870  0.513  20   35   3      0.989
+chb08    0.795      0.178   0.258  0.211  23  106  66      0.997
+MEAN  AUC=0.941  F1=0.332  (train AUC 0.992)
+
+======================================================================
+C) SANITY CHECK: shuffled labels (should collapse to AUC ~0.5)
+======================================================================
+Logistic Regression  mean AUC with random labels = 0.526
+Gradient Boosting    mean AUC with random labels = 0.518
+
+Saved: improved_summary.csv, lopo_*.csv
